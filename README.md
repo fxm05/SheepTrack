@@ -1,5 +1,4 @@
 # SheepTrack
-SheepTrack
 
 Official repo for the paper "SheepTrack: Occlusion-Robust Detection and Tracking for Dense Sheep Monitoring", published in Electronics (2026). The repo contains the full PyTorch implementation of the proposed detection and tracking framework, including training and inference scripts.
 
