@@ -6,6 +6,3 @@ SheepTrack is an integrated pipeline for robust detection and tracking of sheep 
 
 IMPORTANT NOTE:
 The indoor sheep dataset can be found under this Zenodo link: https://zenodo.org/records/19567803
-
-Acknowledgements
-This work was supported by the National College Students’ Innovation and Entrepreneurship Training Program, the Xi’an Science and Technology Bureau Fund, and the Qin Chuangyuan Innovation and Entrepreneurship Talent Project.
