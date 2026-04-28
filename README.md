@@ -23,6 +23,10 @@ pip install torch torchvision opencv-python numpy scipy tqdm
 ## Training
 ## Evaluation
 ## BibTeX
+
+If you find this work useful for your research, please cite:
+
+```bibtex
 @article{feng2026sheeptrack,
   title={SheepTrack: Occlusion-Robust Detection and Tracking for Dense Sheep Monitoring},
   author={Feng, Xiaomu and Li, Jiping and Yi, Jiacheng and Wang, Zhenhua},
@@ -30,3 +34,4 @@ pip install torch torchvision opencv-python numpy scipy tqdm
   year={2026},
   publisher={Multidisciplinary Digital Publishing Institute}
 }
+```
