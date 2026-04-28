@@ -1,0 +1,12 @@
+appearance_thresh: 0.25
+fuse_score: true
+gmc_method: sparseOptFlow
+match_thresh: 0.7
+new_track_thresh: 0.4
+proximity_thresh: 0.3
+reid_model_path: /home/ultralytics/ultralytics/trackers/sheep_reid_128d.pth
+track_buffer: 30
+track_high_thresh: 0.5
+track_low_thresh: 0.15
+tracker_type: botsort
+with_reid: true

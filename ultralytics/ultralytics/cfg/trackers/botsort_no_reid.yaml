@@ -1,0 +1,35 @@
+## Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license
+##
+## 改进的 BoT-SORT 配置 - 支持低分框二次匹配和轻量级 ReID
+## 创新点：对低分框与短时丢失轨迹进行二次匹配
+##
+tracker_type: botsort
+
+# === 基础跟踪参数 ===
+track_high_thresh: 0.6      # 高分检测阈值（第一次匹配）
+track_low_thresh: 0.15       # 最低检测阈值（过滤噪声）
+low_score_thresh: 0.3       # 【创新】低分框阈值（用于二次匹配：0.2 <= score < 0.5）
+new_track_thresh: 0.5       # 初始化新轨迹的阈值
+track_buffer: 30            # 轨迹保留帧数（超过此帧数将被移除）
+match_thresh: 0.7           # 匹配阈值（第一次匹配）
+fuse_score: True            # 是否融合置信度分数
+
+# === BoT-SORT 特定参数 ===
+gmc_method: sparseOptFlow   # 全局运动补偿方法: ['orb', 'ecc', 'sparseOptFlow']
+
+# === 【创新】ReID 参数（轻量级 128-D embedding）===
+with_reid: False                                # 启用 ReID
+reid_model_path: "/home/ultralytics/ultralytics/trackers/sheep_reid_128d.pth"    # ReID 模型路径（训练后的羊种特化模型）
+proximity_thresh: 0.3                              # IoU 空间距离阈值
+appearance_thresh: 0.35                            # ReID 外观相似度阈值
+
+# === 说明 ===
+# 1. track_high_thresh: 高置信度检测，用于与活跃轨迹进行第一次匹配
+# 2. low_score_thresh: 低置信度检测，用于与短时丢失轨迹进行第二次匹配（创新点）
+# 3. with_reid: 启用后会使用 128-D embedding 进行外观匹配，提升遮挡场景性能
+# 4. reid_model_path: 使用 FastReID 训练的羊种特化模型（如未提供则使用随机初始化）
+
+# === 推荐配置（羊只跟踪）===
+# - 羊群密集场景：track_high_thresh=0.6, low_score_thresh=0.3, appearance_thresh=0.2
+# - 羊群稀疏场景：track_high_thresh=0.5, low_score_thresh=0.2, appearance_thresh=0.25
+# - 严重遮挡场景：track_high_thresh=0.4, low_score_thresh=0.15, appearance_thresh=0.3

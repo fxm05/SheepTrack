@@ -1,0 +1,26 @@
+python extract_dataset.py \
+    --videos /root/autodl-tmp/datasets/test/test1/222.mp4 \
+    --output data/sheep_reid_raw3 \
+    --model /home/runyolo/runs/detect/train/weights/best.pt \
+    --min_images 5 \
+    --max_images 50 \
+    --interval 5 \
+    --split
+
+    # 使用提取的数据训练
+python train_sheep_reid.py \
+    --data_root data3 \
+    --batch_size 16 \
+    --num_epochs 100 \
+    --lr 0.003 \
+    --save_path /home/ultralytics/ultralytics/trackers/weight/sheep_reid_128d.pth
+
+python extract_dataset.py \
+    --videos /root/autodl-tmp/datasets/test/test1/222.mp4 \
+    --output data3 \
+    --model /home/runyolo/runs/detect/train/weights/best.pt \
+    --min_images 20 \
+    --max_images 100 \
+    --interval 2 \
+    --split \
+    --augment 3

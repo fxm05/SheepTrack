@@ -1,0 +1,98 @@
+## Ultralytics 🚀 AGPL-3.0 License
+##
+## 融合 FAM (Flock Appearance Module) 和 TCM (Trajectory Correction Module) 的配置
+## 创新点：
+##   1. 低分框二次匹配 + ReID 外观特征（FAM）
+##   2. 观测历史校正 + 加速度异常检测（TCM）
+##
+tracker_type: botsort
+
+# ========================================
+# 基础跟踪参数
+# ========================================
+track_high_thresh: 0.6      # 高分检测阈值（第一次匹配）
+track_low_thresh: 0.15      # 低分检测阈值（第二次匹配，恢复遮挡目标）
+new_track_thresh: 0.5       # 初始化新轨迹的置信度阈值
+track_buffer: 30            # 轨迹保留帧数（超过则移除）
+match_thresh: 0.75          # IoU 匹配阈值（提高以减少误匹配）
+fuse_score: True            # 是否融合检测置信度
+
+# ========================================
+# 【FAM】ReID 外观特征参数
+# ========================================
+with_reid: True                                                           # 启用 ReID 模块
+reid_model_path: "/home/ultralytics/ultralytics/trackers/sheep_reid_128d.pth"  # ReID 模型路径
+proximity_thresh: 0.4       # IoU 空间距离阈值（用于判断是否使用外观特征）
+appearance_thresh: 0.30     # ReID 外观相似度阈值（越小越严格）
+
+# ReID 特征历史管理
+feat_history: 50            # 每个轨迹保留的历史特征数量
+
+# ========================================
+# 【TCM】观测校正参数
+# ========================================
+max_occlusion_frames: 30    # 触发观测校正的最大遮挡帧数
+acceleration_threshold: 15.0 # 加速度异常阈值（像素/帧²）
+observation_window: 10      # 观测校正使用的历史窗口大小
+
+# ========================================
+# BoT-SORT 特定参数
+# ========================================
+gmc_method: sparseOptFlow   # 全局运动补偿方法
+                            # 可选: 'orb', 'ecc', 'sparseOptFlow', 'none'
+
+# ========================================
+# 场景适配建议
+# ========================================
+#
+# 【密集羊群场景】（严重遮挡，频繁交叉）
+#   - track_high_thresh: 0.5
+#   - track_low_thresh: 0.2
+#   - appearance_thresh: 0.25
+#   - max_occlusion_frames: 40
+#
+# 【稀疏羊群场景】（开阔空间，少遮挡）
+#   - track_high_thresh: 0.6
+#   - track_low_thresh: 0.15
+#   - appearance_thresh: 0.35
+#   - max_occlusion_frames: 20
+#
+# 【快速运动场景】（羊群奔跑，急停急转）
+#   - acceleration_threshold: 20.0
+#   - observation_window: 15
+#   - gmc_method: 'sparseOptFlow'
+#
+# 【低光照/模糊场景】（检测质量差）
+#   - track_low_thresh: 0.1
+#   - with_reid: True （依赖外观）
+#   - proximity_thresh: 0.5
+#
+# ========================================
+
+# ========================================
+# 调试和监控参数
+# ========================================
+verbose: False              # 是否输出详细日志
+mot20: False                # MOT20 数据集特殊设置
+
+# ========================================
+# 参数说明
+# ========================================
+#
+# 【FAM 工作原理】
+# 1. 高分检测与活跃轨迹匹配（IoU + ReID）
+# 2. 低分检测与短时丢失轨迹二次匹配（恢复遮挡目标）
+# 3. ReID 特征使用指数移动平均平滑
+#
+# 【TCM 工作原理】
+# 1. 记录轨迹的观测历史（位置、速度、加速度）
+# 2. 检测长时间遮挡（>max_occlusion_frames）
+# 3. 检测加速度异常（突然加速/减速/方向变化）
+# 4. 使用多项式拟合历史轨迹进行校正
+#
+# 【融合优势】
+# - FAM 解决外观相似问题（ReID 特征区分个体）
+# - TCM 解决运动异常问题（观测校正平滑轨迹）
+# - 两者互补，提升复杂场景下的跟踪鲁棒性
+#
+# ========================================
