@@ -18,3 +18,6 @@ This project is built on the Ultralytics framework.
 ```bash
 pip install ultralytics
 pip install torch torchvision opencv-python numpy scipy tqdm
+
+## Training
+使用以下命令训练SheepTrack检测模型：
