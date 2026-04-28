@@ -18,3 +18,15 @@ This project is built on the Ultralytics framework.
 ```bash
 pip install ultralytics
 pip install torch torchvision opencv-python numpy scipy tqdm
+```
+
+## Training
+## Evaluation
+## BibTeX
+@article{feng2026sheeptrack,
+  title={SheepTrack: Occlusion-Robust Detection and Tracking for Dense Sheep Monitoring},
+  author={Feng, Xiaomu and Li, Jiping and Yi, Jiacheng and Wang, Zhenhua},
+  journal={Electronics},
+  year={2026},
+  publisher={Multidisciplinary Digital Publishing Institute}
+}
