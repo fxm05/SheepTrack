@@ -1,0 +1,27 @@
+# BoT-SORT 跟踪器配置（带观测校正）
+tracker_type: botsort
+
+# ====== 必需的基础参数 ======
+track_high_thresh: 0.5      # 高置信度跟踪阈值（必需）
+track_low_thresh: 0.1       # 低置信度跟踪阈值（必需）
+new_track_thresh: 0.6       # 新轨迹置信度阈值（必需）
+track_buffer: 30            # 轨迹缓冲帧数
+match_thresh: 0.8           # 匹配阈值
+
+# ====== BoT-SORT特定参数 ======
+proximity_thresh: 0.5       # 空间接近度阈值
+appearance_thresh: 0.25     # 外观相似度阈值
+with_reid: False            # 是否启用ReID
+gmc_method: sparseOptFlow   # GMC方法
+
+# ====== 分数融合 ======
+fuse_score: True            # 是否融合检测分数
+
+# ====== 观测校正参数（新增）======
+max_occlusion_frames: 30    # 触发观测校正的最大遮挡帧数
+acceleration_threshold: 15.0 # 加速度异常阈值
+observation_window: 10      # 观测校正窗口大小
+feat_history: 50            # 特征历史长度
+
+# ====== 其他参数 ======
+mot20: False                # MOT20数据集设置
